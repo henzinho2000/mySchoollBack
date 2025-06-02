@@ -6,14 +6,14 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 
-require("dotenv").config();
+require("dotenv").config()
 
 app.use(bodyParser.json());
 app.use(cors());
 
 // Configuração do banco de dados
 const pool = new Pool({
-	connectionString: ,
+	connectionString: process.env.BDD,
 	ssl: {
 		rejectUnauthorized: false
 	}
