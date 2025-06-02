@@ -6,12 +6,14 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 
+require(".dotenv").config();
+
 app.use(bodyParser.json());
 app.use(cors());
 
 // Configuração do banco de dados
 const pool = new Pool({
-	connectionString: "postgresql://ccuser:bcO7f46DGY8xv8MTG5x02Y4IXLGBUYLI@dpg-d0v25sffte5s7396i9u0-a.oregon-postgres.render.com/dbmyschool",
+	connectionString: process.env.BDD,
 	ssl: {
 		rejectUnauthorized: false
 	}
