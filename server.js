@@ -173,13 +173,12 @@ app.post("/login", async (req, res) => {
 		const { password } = req.body;
 
 		if(password == process.env.PASSWORD){
-			res.json({login: true}).status(200);
+			res.status(200).json({login: true});
 		}else{
-			res.json({login: false}).status(401);
+			res.status(402).json({login: false});
 		}
-
 	} catch (err) {
-		console.error('Erro ao buscar comentários:', err);
+		console.error('Erro ao verificar o password', err);
 		res.status(500).json({ error: 'Erro interno do servidor' });
 	}
 });
