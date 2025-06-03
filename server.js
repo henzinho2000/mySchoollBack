@@ -152,10 +152,10 @@ app.delete("/projects/:idProject", async (req, res) => {
 	}
 });
 
-app.delete("/comments/:idComment", async (req, res) => {
+app.delete("/comments/:idProject", async (req, res) => {
 	try {
 		const { idComment } = req.params;
-		const result = await pool.query("DELETE FROM comments WHERE id = $1", [idComment]);
+		const result = await pool.query("DELETE FROM comments WHERE project_id = $1", [idComment]);
 		
 		if (result.rowCount === 0) {
 			return res.status(404).json({ error: 'Comentário não encontrado' });
@@ -164,6 +164,22 @@ app.delete("/comments/:idComment", async (req, res) => {
 		res.json({ message: "Comentário deletado" });
 	} catch (err) {
 		console.error('Erro ao deletar comentário:', err);
+		res.status(500).json({ error: 'Erro interno do servidor' });
+	}
+});
+
+app.post("/login", async (req, res) => {
+	try {
+		const { password } = req.body;
+
+		if(password == process.env.PASSWORD){
+			res.json({login: true}).status(200);
+		}else{
+			res.json({login: false}).status(401);
+		}
+
+	} catch (err) {
+		console.error('Erro ao buscar comentários:', err);
 		res.status(500).json({ error: 'Erro interno do servidor' });
 	}
 });
